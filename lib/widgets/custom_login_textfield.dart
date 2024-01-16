@@ -32,7 +32,7 @@ class CustomLoginTextField extends StatelessWidget {
           fillColor: Colors.white,
           filled: true,
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey[500]),
+          hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
         ),
       ),
     );

@@ -29,10 +29,10 @@ class SplashScreen extends StatelessWidget {
                   height: 70,
                 ),
                 Text(
-                  'Verrot',
+                  'David\'s Kitchen',
                   style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
-                      fontSize: 50,
+                      fontSize: 35,
                     ),
                   ),
                 ),
@@ -48,13 +48,16 @@ class SplashScreen extends StatelessWidget {
                   height: 300,
                 ),
                 Text(
-                  'Welcome to Verrot',
+                  'Welcome to David\'s Kitchen',
                   style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       color: Colors.white,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 25,
                 ),
                 const SizedBox(
                   height: 50,

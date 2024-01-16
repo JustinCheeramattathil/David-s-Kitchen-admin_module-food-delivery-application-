@@ -1,5 +1,6 @@
-import 'package:adminmodule/view/login_screen.dart';
-import 'package:adminmodule/view/splash_screen.dart';
+import 'package:adminmodule/view/screens/auth/login_screen.dart';
+import 'package:adminmodule/view/screens/home/home_screen.dart';
+import 'package:adminmodule/view/screens/home/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       routes: {
         '/login': (context) => LoginScreen(),
+        '/home': (context) => HomeScreen(),
       },
     );
   }
