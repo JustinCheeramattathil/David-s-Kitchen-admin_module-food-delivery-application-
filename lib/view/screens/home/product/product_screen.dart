@@ -1,11 +1,12 @@
-import 'package:adminmodule/view/screens/home/category/add_category.dart';
-import 'package:adminmodule/widgets/custom_card.dart';
+import 'package:adminmodule/view/screens/home/product/add_product.dart';
+import 'package:adminmodule/widgets/products_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
-class MenuScreen extends StatelessWidget {
-  MenuScreen({super.key});
+// ignore: must_be_immutable
+class ProductScreen extends StatelessWidget {
+  ProductScreen({super.key});
 
   List<String> images = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr3QxqTIyF9ZrWS99YdyZbxJL_WkYY_m1wZA',
@@ -25,6 +26,15 @@ class MenuScreen extends StatelessWidget {
     'Coffe',
     'Shake',
   ];
+  List<String> price = [
+    '₹200',
+    '₹250',
+    '₹400',
+    '₹350',
+    '₹160',
+    '₹150',
+    '₹260',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +44,7 @@ class MenuScreen extends StatelessWidget {
           baseColor: const Color.fromARGB(255, 250, 114, 3),
           highlightColor: Colors.white,
           child: Text(
-            'Categories',
+            'Products',
             style: GoogleFonts.poppins(
               textStyle: const TextStyle(
                 fontSize: 20,
@@ -56,9 +66,10 @@ class MenuScreen extends StatelessWidget {
               top: 10,
               bottom: 10,
             ),
-            child: CustomCard(
+            child: ProductCards(
               imageUrl: images[index],
               text: title[index],
+              price: price[index],
             ),
           );
         },
@@ -69,10 +80,10 @@ class MenuScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AddCategory(),
+          builder: (context) => AddProduct(),
         )),
         child: const Icon(
-          Icons.restaurant,
+          Icons.add,
           color: Colors.white,
         ),
       ),

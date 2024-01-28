@@ -1,18 +1,18 @@
-import 'package:adminmodule/controller/category_controller.dart';
 import 'package:adminmodule/widgets/custom_login_textfield.dart';
+import 'package:adminmodule/widgets/custom_textarea.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
-class AddCategory extends StatelessWidget {
-  final categoryController = TextEditingController();
-  AddCategory({super.key});
+class AddProduct extends StatelessWidget {
+  final productController = TextEditingController();
+  final priceController = TextEditingController();
+  final detailsController = TextEditingController();
+  AddProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final category = Provider.of<CategoryController>(context);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 247, 209, 152),
       appBar: AppBar(
@@ -21,7 +21,7 @@ class AddCategory extends StatelessWidget {
           baseColor: const Color.fromARGB(255, 250, 114, 3),
           highlightColor: Colors.white,
           child: Text(
-            'Add New Category',
+            'Add Product',
             style: GoogleFonts.poppins(
               textStyle: const TextStyle(
                 fontSize: 20,
@@ -40,16 +40,12 @@ class AddCategory extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 4),
-                  borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(
-                    image: category.image != null
-                        ? FileImage(category.image!)
-                        : const AssetImage('assets/images/blank.png')
-                            as ImageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    border: Border.all(color: Colors.grey, width: 4),
+                    borderRadius: BorderRadius.circular(30),
+                    image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr3QxqTIyF9ZrWS99YdyZbxJL_WkYY_m1wZA'),
+                        fit: BoxFit.cover)),
               ),
             ),
             Padding(
@@ -57,9 +53,7 @@ class AddCategory extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: MaterialButton(
-                  onPressed: () async {
-                    await category.pickImage();
-                  },
+                  onPressed: () {},
                   color: const Color.fromARGB(255, 255, 153, 0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
@@ -75,12 +69,23 @@ class AddCategory extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             CustomLoginTextField(
-              controller: categoryController,
-              hintText: 'Add category name',
+              controller: productController,
+              hintText: 'Add Product',
               obscureText: false,
             ),
+            const SizedBox(height: 10),
+            CustomLoginTextField(
+              controller: priceController,
+              hintText: 'Add Price',
+              obscureText: false,
+            ),
+            const SizedBox(height: 10),
+            CustomTextArea(
+              controller: detailsController,
+              hintText: 'Details of product',
+            ),
             SizedBox(
-              height: size.height * 0.3,
+              height: size.height * 0.15,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -88,9 +93,7 @@ class AddCategory extends StatelessWidget {
                 height: 60,
                 width: double.infinity,
                 child: MaterialButton(
-                  onPressed: () {
-                    
-                  },
+                  onPressed: () {},
                   color: const Color.fromARGB(255, 255, 153, 0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),

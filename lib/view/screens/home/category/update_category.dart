@@ -1,18 +1,15 @@
-import 'package:adminmodule/controller/category_controller.dart';
 import 'package:adminmodule/widgets/custom_login_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
-class AddCategory extends StatelessWidget {
+class UpdateCategory extends StatelessWidget {
   final categoryController = TextEditingController();
-  AddCategory({super.key});
+  UpdateCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final category = Provider.of<CategoryController>(context);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 247, 209, 152),
       appBar: AppBar(
@@ -21,7 +18,7 @@ class AddCategory extends StatelessWidget {
           baseColor: const Color.fromARGB(255, 250, 114, 3),
           highlightColor: Colors.white,
           child: Text(
-            'Add New Category',
+            'Update Category',
             style: GoogleFonts.poppins(
               textStyle: const TextStyle(
                 fontSize: 20,
@@ -40,16 +37,12 @@ class AddCategory extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 4),
-                  borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(
-                    image: category.image != null
-                        ? FileImage(category.image!)
-                        : const AssetImage('assets/images/blank.png')
-                            as ImageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    border: Border.all(color: Colors.grey, width: 4),
+                    borderRadius: BorderRadius.circular(30),
+                    image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr3QxqTIyF9ZrWS99YdyZbxJL_WkYY_m1wZA'),
+                        fit: BoxFit.cover)),
               ),
             ),
             Padding(
@@ -57,14 +50,12 @@ class AddCategory extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: MaterialButton(
-                  onPressed: () async {
-                    await category.pickImage();
-                  },
+                  onPressed: () {},
                   color: const Color.fromARGB(255, 255, 153, 0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   child: Text(
-                    'Add Image',
+                    'Edit Image',
                     style: GoogleFonts.poppins(
                       textStyle:
                           const TextStyle(fontSize: 14, color: Colors.white),
@@ -76,34 +67,55 @@ class AddCategory extends StatelessWidget {
             const SizedBox(height: 20),
             CustomLoginTextField(
               controller: categoryController,
-              hintText: 'Add category name',
+              hintText: 'Edit category name',
               obscureText: false,
             ),
             SizedBox(
               height: size.height * 0.3,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: MaterialButton(
-                  onPressed: () {
-                    
-                  },
-                  color: const Color.fromARGB(255, 255, 153, 0),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Text(
-                    'Save the details',
-                    style: GoogleFonts.poppins(
-                      textStyle:
-                          const TextStyle(fontSize: 14, color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SizedBox(
+                    width: 120,
+                    child: MaterialButton(
+                      onPressed: () {},
+                      color: const Color.fromARGB(255, 255, 153, 0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        'Delete',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                              fontSize: 14, color: Colors.white),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SizedBox(
+                    width: 120,
+                    child: MaterialButton(
+                      onPressed: () {},
+                      color: const Color.fromARGB(255, 255, 153, 0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        'Update',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                              fontSize: 14, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

@@ -1,8 +1,9 @@
+import 'package:adminmodule/view/screens/home/category/update_category.dart';
 import 'package:adminmodule/view/screens/home/category/category_screen.dart';
-import 'package:adminmodule/view/screens/home/menu_screen.dart';
 import 'package:adminmodule/view/screens/home/offer_screen.dart';
 import 'package:adminmodule/view/screens/home/order_screen.dart';
-import 'package:adminmodule/view/screens/home/product_screen.dart';
+import 'package:adminmodule/view/screens/home/product/product_screen.dart';
+import 'package:adminmodule/view/screens/home/product/update_product.dart';
 import 'package:adminmodule/view/screens/home/rider_screen.dart';
 import 'package:adminmodule/widgets/home_card.dart';
 import 'package:flutter/material.dart';
@@ -11,27 +12,29 @@ import 'package:shimmer/shimmer.dart';
 
 import 'user_screen.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   List<Widget> widgets = [
-    MenuScreen(),
-    const ProductScreen(),
-    const CategoryScreen(),
+    CategoryScreen(),
+    ProductScreen(),
     const OrderScreen(),
     const OfferScreen(),
     const UserScreen(),
     const RiderScreen(),
   ];
+  List<Widget> editscreens = [
+    UpdateCategory(),
+    UpdateProduct(),
+  ];
 
   List<String> texts = [
-    'Menu',
-    'Product',
     'Category',
+    'Product',
     'Order',
     'Offer',
     'User',
     'Rider',
-    'Report',
   ];
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: GridView.builder(
-        itemCount: 7,
+        itemCount: 6,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),
@@ -71,6 +74,14 @@ class HomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => widgets[index],
+                  ),
+                );
+              },
+              onLongPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => editscreens[index],
                   ),
                 );
               },

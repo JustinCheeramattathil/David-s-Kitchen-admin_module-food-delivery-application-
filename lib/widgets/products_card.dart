@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomCard extends StatelessWidget {
+class ProductCards extends StatelessWidget {
   final String text;
-
+  final String price;
   final String imageUrl;
-  const CustomCard({
+  const ProductCards({
     super.key,
     required this.text,
+    required this.price,
     required this.imageUrl,
   });
 
@@ -39,6 +40,13 @@ class CustomCard extends StatelessWidget {
               text,
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+            Text(
+              price,
+              style: GoogleFonts.poppins(
+                textStyle: const TextStyle(
+                    fontSize: 14, color: Color.fromARGB(255, 255, 255, 255)),
               ),
             ),
           ],

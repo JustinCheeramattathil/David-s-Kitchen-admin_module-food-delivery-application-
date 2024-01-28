@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomLoginTextField extends StatelessWidget {
-  // ignore: prefer_typing_uninitialized_variables
+class CustomTextArea extends StatelessWidget {
   final controller;
   final String hintText;
-  final bool obscureText;
-
-  const CustomLoginTextField({
+  const CustomTextArea({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.obscureText,
   });
 
   @override
@@ -18,8 +14,8 @@ class CustomLoginTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
-        controller: controller,
-        obscureText: obscureText,
+        maxLines: null,
+        keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),

@@ -1,12 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+import 'package:adminmodule/controller/admin_login_controller.dart';
+import 'package:adminmodule/core/constants/constants.dart';
 import 'package:adminmodule/widgets/custom_login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../widgets/custom_login_textfield.dart';
 
 class LoginScreen extends StatelessWidget {
-  final emailController = TextEditingController();
+  final mobileController = TextEditingController();
   final passwordController = TextEditingController();
   LoginScreen({super.key});
 
@@ -30,9 +33,7 @@ class LoginScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(
-                  height: 50,
-                ),
+                kheight50,
                 Container(
                   height: 130,
                   width: 130,
@@ -46,9 +47,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 60,
-                ),
+                kheight60,
                 Shimmer.fromColors(
                   baseColor: const Color.fromARGB(255, 250, 114, 3),
                   highlightColor: Colors.black,
@@ -69,26 +68,29 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
+                kheight40,
                 CustomLoginTextField(
-                  controller: emailController,
-                  hintText: 'Email',
+                  controller: mobileController,
+                  hintText: 'Mobile',
                   obscureText: false,
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
+                kheight25,
                 CustomLoginTextField(
                   controller: passwordController,
                   hintText: 'Password',
-                  obscureText: true,
+                  obscureText: false,
                 ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const CustomLoginButton()
+                kheight50,
+                Consumer<LoginController>(
+                    builder: (context, loginController, child) {
+                  return CustomLoginButton(onTap: () async {
+                    await loginController.adminLogin(
+                      mobileController.text,
+                      passwordController.text,
+                      context,
+                    );
+                  });
+                })
               ],
             ),
           ),

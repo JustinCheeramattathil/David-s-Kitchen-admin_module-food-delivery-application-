@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomCard extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final String text;
-
-  final String imageUrl;
-  const CustomCard({
+  const ProductCard({
     super.key,
     required this.text,
-    required this.imageUrl,
   });
 
   @override
@@ -17,14 +14,15 @@ class CustomCard extends StatelessWidget {
       height: 180,
       width: 100,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey, width: 3),
-        image:
-            DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover),
+        gradient: const LinearGradient(colors: [
+          Color.fromARGB(255, 250, 114, 3),
+          Color.fromARGB(255, 255, 187, 85),
+        ]),
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 5,
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3),
           ),
@@ -32,11 +30,16 @@ class CustomCard extends StatelessWidget {
       ),
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               text,
+              style: GoogleFonts.poppins(
+                textStyle: const TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+            Text(
+              'Management',
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(fontSize: 14, color: Colors.white),
               ),
