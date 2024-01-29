@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:adminmodule/core/api/api_base_url.dart';
 import 'package:adminmodule/core/api/api_end_url.dart';
 import 'package:adminmodule/model/category_model.dart';
@@ -18,25 +20,30 @@ class CategoryRepository {
     return lastPathSegment;
   }
 
-// This is a function used  for image picking
-
- 
 //This is the function called for adding category through api
-  Future<Map<String, dynamic>> addCategory(CategoryModel categorymodel) async {
+  Future<void> addCategory(CategoryModel categorymodel) async {
     final image = categorymodel.image;
-    final imagepath = getimageurl(
-        image.path); //stores the image url in string format before passing through the api
+    final imagepath = getimageurl(image.imagepath);
+    log(imagepath
+        .toString()); //stores the image url in string format before passing through the api
     try {
       FormData formdata = FormData.fromMap({
-        'name': categorymodel.name,
-        'image': await MultipartFile.fromFile(categorymodel.image.path,
+        'category': categorymodel.name,
+        'image': await MultipartFile.fromFile(categorymodel.image.imagepath,
             filename: imagepath)
       });
-      final response = await _dio.post(
+      log('Image Path: ${categorymodel.image.imagepath}');
+
+      log('Request data: ${formdata.fields}');
+      Response response = await _dio.post(
         addcategoryurl,
         data: formdata,
       );
-      if (response.data == 200) {
+      log(addcategoryurl.toString());
+      log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        log('category added successfully');
+        log(response.data.toString());
         return response.data;
       } else {
         throw DioException(
@@ -51,9 +58,11 @@ class CategoryRepository {
         type: DioExceptionType.badResponse,
         error: 'Error adding category:$e',
       );
+      // log('Error adding category: ${e.toString()}');
     }
   }
 
+  ///
 //Function used to get the whole categories from the api to frontend in a list format
   Future<List<CategoryModel>> getCategories() async {
     try {
@@ -69,18 +78,22 @@ class CategoryRepository {
             .toList();
         return categories;
       } else {
-        throw DioException(
-            requestOptions: response.requestOptions,
-            response: response,
-            type: DioExceptionType.badResponse,
-            error:
-                'Failed to get categories.Status code:${response.statusCode}');
+        // throw DioException(
+        //     requestOptions: response.requestOptions,
+        //     response: response,
+        //     type: DioExceptionType.badResponse,
+        //     error:
+        //         'Failed to get categories.Status code:${response.statusCode}');
+        log('Failed to get the categories');
       }
     } catch (e) {
-      throw DioException(
-          requestOptions: RequestOptions(path: getcategoryurl),
-          type: DioExceptionType.badResponse,
-          error: 'Error getting categories:$e');
+      // throw DioException(
+      //     requestOptions: RequestOptions(path: getcategoryurl),
+      //     type: DioExceptionType.badResponse,
+      //     error: 'Error getting categories:$e');
+      log('Error in getting the categories:$e');
+      return [];
     }
+    return [];
   }
 }

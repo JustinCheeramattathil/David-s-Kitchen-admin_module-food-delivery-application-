@@ -14,9 +14,8 @@ class LoginRepository {
 
   Future<Map<String, dynamic>> adminLogin(
       String mobile, String password) async {
-    log('function is taking');
+    log('login function is taken');
     try {
-      log('haiiiiiiiiiii');
       final response = await _dio.post(
         loginurl,
         data: {
@@ -27,7 +26,7 @@ class LoginRepository {
 
       if (response.statusCode == 200) {
         final token = response.data['token'];
-        // log(token);
+         log(token.toString());
 
         // Successful login
         return {"success": true, "data": response.data};
@@ -47,6 +46,7 @@ class LoginRepository {
   Future<dynamic> checkAdminLoginStatus() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await Future.delayed(const Duration(milliseconds: 10));
       final token = prefs.getString('token');
 
       if (token != null) {

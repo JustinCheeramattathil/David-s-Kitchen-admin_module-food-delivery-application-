@@ -1,13 +1,11 @@
-import 'dart:io';
-
 class CategoryModel {
   dynamic id;
   String name;
-  File image;
+  ImageCategory image;
   bool isBlocked;
 
   CategoryModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.image,
     required this.isBlocked,
@@ -17,25 +15,39 @@ class CategoryModel {
     return CategoryModel(
       id: json['_id'],
       name: json['name'],
-      image:json['image'],
+      image: ImageCategory.fromJson(json['image']),
       isBlocked: json['isBlocked'],
     );
   }
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image.toMap(),
+      'isBlocked': isBlocked,
+    };
+  }
 }
 
-// class ImageCategory {
-//   String publicId;
-//   String imageUrl;
+class ImageCategory {
+  dynamic publicId;
+  String imagepath;
 
-//   ImageCategory({
-//     required this.publicId,
-//     required this.imageUrl,
-//   });
+  ImageCategory({
+    this.publicId,
+    required this.imagepath,
+  });
 
-//   factory ImageCategory.fromJson(Map<String, dynamic> json) {
-//     return ImageCategory(
-//       publicId: json['public_id'],
-//       imageUrl: json['image'],
-//     );
-//   }
-// }
+  factory ImageCategory.fromJson(Map<String, dynamic> json) {
+    return ImageCategory(
+      publicId: json['public_id'],
+      imagepath: json['image'],
+    );
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'public_id': publicId,
+      'image': imagepath,
+    };
+  }
+}

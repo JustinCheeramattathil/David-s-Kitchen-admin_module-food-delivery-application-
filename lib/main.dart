@@ -3,6 +3,7 @@ import 'package:adminmodule/controller/category_controller.dart';
 import 'package:adminmodule/repository/admin_login_repository.dart';
 import 'package:adminmodule/repository/category_repository.dart';
 import 'package:adminmodule/view/screens/auth/login_screen.dart';
+import 'package:adminmodule/view/screens/home/category/category_screen.dart';
 import 'package:adminmodule/view/screens/home/home_screen.dart';
 import 'package:adminmodule/view/screens/home/splash_screen.dart';
 import 'package:dio/dio.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => LoginScreen(),
           '/home': (context) => HomeScreen(),
+          '/category':(context) => CategoryScreen(),
         },
       ),
     );

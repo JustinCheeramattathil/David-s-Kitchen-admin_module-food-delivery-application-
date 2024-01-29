@@ -15,86 +15,100 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final login = Provider.of<LoginController>(context);
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 230, 211, 182),
-                Colors.white,
-              ],
-            ),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                kheight50,
-                Container(
-                  height: 130,
-                  width: 130,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(25)),
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/davis.jpeg',
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+      body: Stack(
+        children: [
+          Center(
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(255, 230, 211, 182),
+                    Colors.white,
+                  ],
                 ),
-                kheight60,
-                Shimmer.fromColors(
-                  baseColor: const Color.fromARGB(255, 250, 114, 3),
-                  highlightColor: Colors.black,
-                  child: Text(
-                    'David\'s Kitchen',
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontSize: 35,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    kheight50,
+                    Container(
+                      height: 130,
+                      width: 130,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/davis.jpeg',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Text(
-                  'delivering dangerously delicious baskets',
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 10,
+                    kheight60,
+                    Shimmer.fromColors(
+                      baseColor: const Color.fromARGB(255, 250, 114, 3),
+                      highlightColor: Colors.black,
+                      child: Text(
+                        'David\'s Kitchen',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            fontSize: 35,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Text(
+                      'delivering dangerously delicious baskets',
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
+                    kheight40,
+                    CustomLoginTextField(
+                      controller: mobileController,
+                      hintText: 'Mobile',
+                      obscureText: false,
+                    ),
+                    kheight25,
+                    CustomLoginTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: false,
+                    ),
+                    kheight50,
+                    Consumer<LoginController>(
+                        builder: (context, loginController, child) {
+                      return CustomLoginButton(onTap: () async {
+                        await loginController.adminLogin(
+                          mobileController.text,
+                          passwordController.text,
+                          context,
+                        );
+                      });
+                    })
+                  ],
                 ),
-                kheight40,
-                CustomLoginTextField(
-                  controller: mobileController,
-                  hintText: 'Mobile',
-                  obscureText: false,
-                ),
-                kheight25,
-                CustomLoginTextField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: false,
-                ),
-                kheight50,
-                Consumer<LoginController>(
-                    builder: (context, loginController, child) {
-                  return CustomLoginButton(onTap: () async {
-                    await loginController.adminLogin(
-                      mobileController.text,
-                      passwordController.text,
-                      context,
-                    );
-                  });
-                })
-              ],
+              ),
             ),
           ),
-        ),
+          if (login.isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 255, 153, 0),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

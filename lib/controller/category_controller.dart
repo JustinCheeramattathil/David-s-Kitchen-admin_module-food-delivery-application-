@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, use_build_context_synchronously
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -17,30 +17,35 @@ class CategoryController extends ChangeNotifier {
   List<CategoryModel> _categories = [];
   List<CategoryModel> get categories => _categories;
 
-
   File? _selectedImage;
   File? get image => _selectedImage;
 // Function used to pick image from the gallery of the device
-   void setImage(File? image) {
+  void setImage(File? image) {
     _selectedImage = image;
     notifyListeners();
   }
 
   Future<void> pickImage() async {
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedImage == null) return;
 
     setImage(File(pickedImage.path));
   }
 
-  
+  Future<void> addCategory(CategoryModel categorymodel, BuildContext context) async {
+  try {
+    _setLoading(true); // Set loading to true before the API call
 
-  Future<void> addCategory(CategoryModel categorymodel) async {
     await _categoryRepository.addCategory(categorymodel);
-    getCategories();
-  }
 
+    getCategories();
+    Navigator.pushNamed(context, '/category');
+  } finally {
+    _setLoading(false); // Set loading to false after the API call completes
+  }
+}
   Future<void> getCategories() async {
     _categories = await _categoryRepository.getCategories();
     notifyListeners();
@@ -50,6 +55,4 @@ class CategoryController extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
-
-
 }
