@@ -66,12 +66,13 @@ class CategoryRepository {
 //Function used to get the whole categories from the api to frontend in a list format
   Future<List<CategoryModel>> getCategories() async {
     try {
-      final response = await _dio.get(getcategoryurl);
+      Response response = await _dio.get(getcategoryurl);
       if (response.statusCode == 200) {
+        log(response.data.toString());
         // Assuming the API response contains a list of categories in a 'data' field
-        final List<dynamic> categoryData = response.data['data'];
+         List<dynamic> categoryData = (response.data['getCategory']);
         // Mapping the category data to a list of CategoryModel
-        final List<CategoryModel> categories = categoryData
+         List<CategoryModel> categories = categoryData
             .map(
               (category) => CategoryModel.fromJson(category),
             )

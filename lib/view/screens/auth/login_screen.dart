@@ -92,6 +92,8 @@ class LoginScreen extends StatelessWidget {
                           passwordController.text,
                           context,
                         );
+                        mobileController.clear();
+                        passwordController.clear();
                       });
                     })
                   ],
