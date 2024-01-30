@@ -11,6 +11,7 @@ class CategoryRepository {
 
   final addcategoryurl = ApiBaseUrl().baseurl + ApiEndUrl().addCategory;
   final getcategoryurl = ApiBaseUrl().baseurl + ApiEndUrl().getCategory;
+  final updatecategoryurl = ApiBaseUrl().baseurl + ApiEndUrl().updateCategory;
 
 //Function to convert the file formatted image to string formatted image
   String getimageurl(String url) {
@@ -70,9 +71,9 @@ class CategoryRepository {
       if (response.statusCode == 200) {
         log(response.data.toString());
         // Assuming the API response contains a list of categories in a 'data' field
-         List<dynamic> categoryData = (response.data['getCategory']);
+        List<dynamic> categoryData = (response.data['getCategory']);
         // Mapping the category data to a list of CategoryModel
-         List<CategoryModel> categories = categoryData
+        List<CategoryModel> categories = categoryData
             .map(
               (category) => CategoryModel.fromJson(category),
             )
@@ -97,4 +98,7 @@ class CategoryRepository {
     }
     return [];
   }
+
+  // This function is used for update the category item
+  
 }

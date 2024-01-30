@@ -34,21 +34,32 @@ class CategoryController extends ChangeNotifier {
     setImage(File(pickedImage.path));
   }
 
-  Future<void> addCategory(CategoryModel categorymodel, BuildContext context) async {
-  try {
-    _setLoading(true); // Set loading to true before the API call
+  Future<void> addCategory(
+      CategoryModel categorymodel, BuildContext context) async {
+    try {
+      _setLoading(true); // Set loading to true before the API call
 
-    await _categoryRepository.addCategory(categorymodel);
+      await _categoryRepository.addCategory(categorymodel);
 
-    getCategories();
-    Navigator.pushNamed(context, '/category');
-  } finally {
-    _setLoading(false); // Set loading to false after the API call completes
+      getCategories();
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Category added successfully'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 1),
+          ),
+        );
+      Navigator.pushReplacementNamed(context, '/category');
+
+    } finally {
+      _setLoading(false); // Set loading to false after the API call completes
+    }
   }
-}
-  Future<void> getCategories() async {
+
+  Future<List<CategoryModel>> getCategories() async {
     _categories = await _categoryRepository.getCategories();
     notifyListeners();
+    return _categories;
   }
 
   void _setLoading(bool value) {

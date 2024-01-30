@@ -1,9 +1,7 @@
-import 'package:adminmodule/view/screens/home/category/update_category.dart';
 import 'package:adminmodule/view/screens/home/category/category_screen.dart';
 import 'package:adminmodule/view/screens/home/offer_screen.dart';
 import 'package:adminmodule/view/screens/home/order_screen.dart';
 import 'package:adminmodule/view/screens/home/product/product_screen.dart';
-import 'package:adminmodule/view/screens/home/product/update_product.dart';
 import 'package:adminmodule/view/screens/home/rider_screen.dart';
 import 'package:adminmodule/widgets/home_card.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +21,7 @@ class HomeScreen extends StatelessWidget {
     const UserScreen(),
     const RiderScreen(),
   ];
-  List<Widget> editscreens = [
-    UpdateCategory(),
-    UpdateProduct(),
-  ];
-
+ 
   List<String> texts = [
     'Category',
     'Product',
@@ -77,14 +71,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               },
-              onLongPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => editscreens[index],
-                  ),
-                );
-              },
+             
               child: HomeCard(
                 text: texts[index],
               ),
